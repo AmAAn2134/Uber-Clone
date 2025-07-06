@@ -58,7 +58,7 @@ const Signin = () => {
               placeholder='password' 
               onChange={(e)=>setPassword(e.target.value)}
             />
-            <button className='w-full mt-7 justify-center items-center text-white bg-black p-3 rounded-lg font-semibold'>Login</button>
+            <button className='w-full mt-7 justify-center items-center text-white bg-black p-3 rounded-lg font-semibold' >Login</button>
 
           <div className='bg-white flex items-center justify-center mt-1'>
               <span className='text-gray-500'>Don't have an account? </span>

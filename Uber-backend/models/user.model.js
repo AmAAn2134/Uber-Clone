@@ -2,7 +2,6 @@ const mongoose=require("mongoose");
 const bcrypt=require("bcrypt");
 const jsonwebtoken=require("jsonwebtoken");
 
-
 const userSchema = new mongoose.Schema({
     fullname:{
         firstname:{
@@ -30,10 +29,12 @@ const userSchema = new mongoose.Schema({
         type:String
     },
 })
-userSchema.method.generateAuthToken=function(){
-    const token=jsonwebtoken.sign({
-        _id:this._id
-    },process.env.jwt_secret)
+userSchema.methods.generateAuthToken= async function(){
+    const token=jsonwebtoken.sign(
+        {_id:this._id},
+        process.env.jwt_secret,
+    { expiresIn:'24h' }
+)
     return token;
 }
 userSchema.methods.comparePassword=async function (password) {

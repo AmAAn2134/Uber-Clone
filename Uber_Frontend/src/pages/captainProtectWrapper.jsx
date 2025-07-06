@@ -1,51 +1,48 @@
-import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { CaptainDataContext } from '../context/captainContext'
-import axios from 'axios'   
+import React, { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { CaptainDataContext } from '../context/captainContext';
+import axios from 'axios';
 
-const CaptainProtectWrapper = (
-   {children}
-) => {
+const CaptainProtectWrapper = ({ children }) => {
+  const { captain, setCaptain } = useContext(CaptainDataContext);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
     const token = localStorage.getItem('token');
-    const { captain,setCaptain } = React.useContext(CaptainDataContext);
-    const navigate = useNavigate();
-    const [loading, setLoading] = React.useState(true);
 
+    if (!token) {
+      navigate('/caption-login', { replace: true });
+      return;
+    }
     console.log(token);
     
-    useEffect(() => {
-      if (!token) {
-        navigate('/caption-login', { replace: true })
-      }
-    } ,[token])
+    const fetchCaptain = async () => {
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-    axios.get(`${import.meta.env.VITE_BASE_URL}`, {
-         headers:{
-             Authorization: `Bearer ${token}` 
-            }
-         })
-     .then(response => {
-        if(response.status === 200){
-          const data = response.data;
-          console.log(data);
-          setCaptain(response.data)
+        if (res.status === 200) {
+          setCaptain(res.data);
           setLoading(false);
         }
-    }).catch(error => {
-        navigate('/caption-login', { replace: true })
-        console.log(error);
-    });
-    // return null
+      } catch (err) {
+        console.error('Fetch error:', err);
+        navigate('/caption-login', { replace: true });
+      }
+    };
 
-  
+    fetchCaptain();
+  }, [navigate, captain]);
+
   if (loading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
-  return (
-    <>
-      {children}
-    </>
-  )
-}
 
-export default CaptainProtectWrapper
+  return <>{children}</>;
+};
+
+export default CaptainProtectWrapper;

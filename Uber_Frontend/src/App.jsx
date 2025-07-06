@@ -11,6 +11,7 @@ import UserProtectWrapper from './pages/UserProtectWrapper'
 import UserLogout from './pages/UserLogout'
 import CaptainHome from './pages/captainHome'
 import CaptainProtectWrapper from './pages/captainProtectWrapper'
+import Riding from './pages/riding'
 const App = () => {
   const ans = useContext(UserDataContext) // Assuming AuthContext is defined elsewhere
    
@@ -19,6 +20,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Start />} />
         <Route path='/signup' element={<Signup />} />
+        <Route path='/riding' element={<Riding />} />
         <Route path='/login' element={<Signin />} />
         <Route path='/caption-signup' element={<Captainsignup />} />
         <Route path='/caption-login' element={<Captainsignin />} />

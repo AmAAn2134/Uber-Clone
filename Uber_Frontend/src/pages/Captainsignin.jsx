@@ -63,7 +63,9 @@ const Captainsignin = () => {
               placeholder='password' 
               onChange={(e)=>setPassword(e.target.value)}
             />
-            <button className='w-full mt-7 justify-center items-center text-white bg-black p-3 rounded-lg font-semibold'>Login</button>
+            <button className='w-full mt-7 justify-center items-center text-white bg-black p-3 rounded-lg font-semibold' onClick={()=>{
+              navigate('/captain-home');
+            }}> Captain Login</button>
 
           <div className='bg-white flex items-center justify-center mt-1'>
               <span className='text-gray-500'>Register Captain? </span>

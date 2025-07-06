@@ -176,8 +176,10 @@ const Captainsignup = () => {
                 </select>
             </div>
         </div>
-          <button className="w-full mt-7 justify-center items-center text-white bg-black p-3 rounded-lg font-semibold">
-            Create Account
+          <button className="w-full mt-7 justify-center items-center text-white bg-black p-3 rounded-lg font-semibold" onClick={()=>{
+            navigate('/captain-home');
+          }}>
+            Create  Captain Account
           </button>
 
           <div className="bg-white flex items-center text-medium justify-center mt-2">
@@ -193,7 +195,7 @@ const Captainsignup = () => {
         </form>
       </div>
       <div>
-        <p className="text-xs leading-tight">
+        <p className="text-xs leading-tight mt-6">
           Uber is a ride-hailing app that connects drivers with passengers in a carpool. As a captain, you can create a carpool, manage your carpool, and earn revenue. To start your carpool, create a new carpool and invite your friends to join.
         </p>
       </div>
